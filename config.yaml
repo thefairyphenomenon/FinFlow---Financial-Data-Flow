@@ -1,0 +1,57 @@
+# DataFlow Configuration
+# All secrets should be moved to .env in production
+
+app:
+  name: "DataFlow"
+  version: "1.0.0"
+  env: "development"  # development | staging | production
+  log_level: "INFO"
+
+database:
+  host: "localhost"
+  port: 5432
+  name: "dataflow_db"
+  user: "dataflow_user"
+  # password loaded from .env
+
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+  ttl_seconds: 3600  # cache TTL
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  rate_limit: 100  # requests per minute
+
+ingestion:
+  # Free data sources only
+  sources:
+    yahoo_finance:
+      enabled: true
+      tickers: ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA", "SPY", "QQQ"]
+      interval: "1d"  # 1m, 5m, 1h, 1d
+    
+    alpha_vantage:
+      enabled: false  # Enable with free API key
+      api_key_env: "ALPHA_VANTAGE_KEY"
+      base_url: "https://www.alphavantage.co/query"
+    
+    fred:  # Federal Reserve Economic Data - completely free
+      enabled: true
+      api_key_env: "FRED_API_KEY"  # Free at fred.stlouisfed.org
+      series: ["GDP", "UNRATE", "CPIAUCSL", "FEDFUNDS", "DGS10"]
+
+data_quality:
+  max_null_pct: 0.05       # fail if >5% nulls
+  max_price_gap_pct: 0.20  # flag if price jumps >20%
+  min_volume: 1000         # flag if volume below this
+
+pipeline:
+  schedule:
+    market_data: "0 18 * * 1-5"   # 6pm weekdays (after market close)
+    macro_data: "0 8 * * *"       # 8am daily
+  retry_attempts: 3
+  retry_delay_seconds: 60

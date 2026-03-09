@@ -1,0 +1,41 @@
+# DataFlow Dependencies
+# All free and open source
+
+# ── Web Framework ─────────────────────────────────────────────────────────────
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+
+# ── Settings & Config ─────────────────────────────────────────────────────────
+pydantic==2.6.0
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# ── Database ──────────────────────────────────────────────────────────────────
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9      # PostgreSQL driver (binary = no system deps needed)
+alembic==1.13.1              # Database migrations (like git for your DB schema)
+
+# ── Cache ─────────────────────────────────────────────────────────────────────
+redis==5.0.1
+
+# ── Data Ingestion ────────────────────────────────────────────────────────────
+yfinance==0.2.36             # FREE Yahoo Finance data
+requests==2.31.0             # HTTP client for FRED API
+pandas==2.1.4
+numpy==1.26.3
+
+# ── Data Quality ──────────────────────────────────────────────────────────────
+# great-expectations==0.18.8  # Uncomment for enterprise data quality framework
+
+# ── Airflow (install separately — has many deps) ──────────────────────────────
+# apache-airflow==2.8.0  # Install via: pip install apache-airflow
+
+# ── Testing ───────────────────────────────────────────────────────────────────
+pytest==7.4.4
+pytest-asyncio==0.23.3
+httpx==0.26.0               # Async HTTP client for FastAPI testing
+
+# ── Utilities ─────────────────────────────────────────────────────────────────
+python-dateutil==2.8.2
