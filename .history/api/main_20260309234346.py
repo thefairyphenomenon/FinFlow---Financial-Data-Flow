@@ -15,7 +15,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from api.routers import market_data, macro_data, pipeline, health, features
+from api.routers import market_data, macro_data, pipeline, health
 from core.logger import get_logger
 from core.settings import settings
 
@@ -70,7 +70,6 @@ app.add_middleware(
 app.include_router(health.router, prefix="/health", tags=["Health"])
 app.include_router(market_data.router, prefix="/api/v1/market", tags=["Market Data"])
 app.include_router(macro_data.router, prefix="/api/v1/macro", tags=["Macro Data"])
-app.include_router(features.router, prefix="/api/v1/features", tags=["Feature Engineering"])
 app.include_router(pipeline.router, prefix="/api/v1/pipeline", tags=["Pipeline"])
 
 
